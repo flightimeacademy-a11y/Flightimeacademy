@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flightime Academy | STEM Education Kits</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #F5F5F5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      background: #000000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      cursor: default;
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.5rem;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: 126px;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #FF6600;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #FF6600 0%, #cc5200 100%);
+      color: white;
+      text-align: center;
+      padding: 180px 20px 100px;
+      margin-top: 70px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #FFFFFF;
+    }
+
+    .cta-button {
+      background: #000000;
+      color: #FFFFFF;
+      padding: 12px 30px;
+      border: 2px solid #FFFFFF;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #FFFFFF;
+      color: #FF6600;
+      transform: translateY(-2px);
+    }
+
+    /* Find Us Online Section */
+    .external-section {
+      background: #FFFFFF;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .external-section h2 {
+      color: #FF6600;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .external-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .external-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #000000;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .external-link:hover {
+      color: #FF6600;
+    }
+
+    .external-link img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
+      transition: transform 0.3s;
+    }
+
+    .external-link:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: #FF6600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title p {
+      color: #333333;
+    }
+
+    /* About Section */
+    .about {
+      background: #FFFFFF;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-content h3 {
+      color: #000000;
+      margin-bottom: 1rem;
+    }
+
+    .about-content p {
+      color: #333333;
+      line-height: 1.8;
+    }
+
+    /* Services Section */
+    .services {
+      background: #F5F5F5;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: #FFFFFF;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #000000;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card h3 {
+      color: #FF6600;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: #333333;
+    }
+
+    /* Products Section */
+    .products {
+      background: #FFFFFF;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: #F5F5F5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      height: 200px;
+      background: linear-gradient(135deg, #FF6600 0%, #cc5200 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      user-select: none;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+    }
+
+    .product-content h3 {
+      color: #FF6600;
+      margin-bottom: 1rem;
+    }
+
+    .product-content p {
+      color: #333333;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      color: #000000;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: #F5F5F5;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #000000;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e5e5e5;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #000000;
+      background-color: #FFFFFF;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #FF6600;
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: #000000;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background: #FF6600;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: #000000;
+      color: white;
+      padding: 2rem 0;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-section h3 {
+      color: #FF6600;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: #FFFFFF;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .footer-section a:hover {
+      color: #FF6600;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #333;
+      margin-top: 2rem;
+      color: #FFFFFF;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #000000;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .services-grid,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .external-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 140px 20px 80px;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .service-card,
+      .product-card {
+        padding: 1.5rem;
+      }
+      
+      .cta-button,
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+      }
+    }
+
+    /* Focus styles for accessibility */
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline: 3px solid #FF6600;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" aria-label="Flightime Academy logo and name">
+        Flightime Academy
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Toggle navigation" role="button" tabindex="0" aria-expanded="false">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+     <img src="Logo.png" alt="Flightime Academy Logo" />
+      <p>We create innovative STEM kits, drones & robotics, and science kits to inspire the next generation of inventors and explorers.</p>
+      <button class="cta-button" id="explore-kits-btn">Explore Our Kits</button>
+    </div>
+  </section>
+
+  <!-- Find Us Online Section -->
+  <section class="external-section" aria-label="Find us on external websites">
+    <div class="container">
+      <h2>Find Us Online</h2>
+      <div class="external-links">
+        <a href="https://www.amazon.in/s?k=flightime+academy" target="_blank" rel="noopener noreferrer" class="external-link" aria-label="Amazon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" />
+          Amazon
+        </a>
+        <a href="https://robu.in/search?type=product&q=flightime+academy" target="_blank" rel="noopener noreferrer" class="external-link" aria-label="Robu.in">
+          <img src="https://dronecode.org/wp-content/uploads/sites/24/2024/02/Robu.in-logo_Color-1024x311.png" alt="Robu.in Logo" />
+          Robu.in
+        </a>
+        <a href="https://www.linkedin.com/company/flightimeacademy/?viewAsMember=true" target="_blank" rel="noopener noreferrer" class="external-link" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn Logo" />
+          LinkedIn
+        </a>
+        <a href="https://www.instagram.com/flightime_academy/?igsh=cGZsazF5cWJvOTFt#" target="_blank" rel="noopener noreferrer" class="external-link" aria-label="Instagram">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram Logo" />
+          Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Us</h2>
+        <p>Learn more about our company and what we stand for</p>
+      </div>
+      <div class="about-content">
+        <div>
+          <h3>Our Story</h3>
+          <p>Founded in 2024, Flightime Academy is dedicated to providing top-quality STEM education kits and robotics solutions. Our team is passionate about empowering students and hobbyists to learn through hands-on experience.</p>
+          <p>We believe in building long-term relationships with our clients based on trust, quality, and exceptional results.</p>
+        </div>
+        <div>
+          <h3>Our Mission</h3>
+          <p>To deliver innovative educational kits and robotics products that inspire creativity, learning, and discovery in STEM fields.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Services</h2>
+        <p>Comprehensive solutions tailored to your needs</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>STEM Kits</h3>
+          <p>Engaging and educational STEM kits designed to teach science, technology, engineering, and math concepts through hands-on projects.</p>
+        </div>
+        <div class="service-card">
+          <h3>Drones & Robotics</h3>
+          <p>Advanced drone and robotics kits that provide practical experience in programming, engineering, and automation.</p>
+        </div>
+        <div class="service-card">
+          <h3>Science Kits</h3>
+          <p>Interactive science kits that make learning fun and accessible for students of all ages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Products</h2>
+        <p>Explore our innovative STEM education kits</p>
+      </div>
+      <div class="product-grid">
+        <div class="product-card" tabindex="0" role="button" aria-pressed="false" data-product="Beginner STEM Kit">
+          <div class="product-image">
+            STEM Starter Kit
+          </div>
+          <div class="product-content">
+            <h3>Beginner STEM Kit</h3>
+            <p>Perfect for young learners to explore basic science and engineering concepts.</p>
+            <div class="product-price">₹1,499</div>
+          </div>
+        </div>
+        <div class="product-card" tabindex="0" role="button" aria-pressed="false" data-product="DIY Drone Kit">
+          <div class="product-image">
+            Drone Kit
+          </div>
+          <div class="product-content">
+            <h3>DIY Drone Kit</h3>
+            <p>Build and program your own drone with our comprehensive kit.</p>
+            <div class="product-price">₹3,999</div>
+          </div>
+        </div>
+        <div class="product-card" tabindex="0" role="button" aria-pressed="false" data-product="Robotics Starter Kit">
+          <div class="product-image">
+            Robotics Kit
+          </div>
+          <div class="product-content">
+            <h3>Robotics Starter Kit</h3>
+            <p>Learn programming and robotics with our beginner-friendly kit.</p>
+            <div class="product-price">₹2,499</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Get in touch with us today</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p>📧 <a href="mailto:flightimeacadmeny@gmail.com">flightimeacadmeny@gmail.com</a></p>
+          <p>📱 <a href="tel:+919608842115">+91 9608842115</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Address</h3>
+          <p>📍 Satbarwa, Palamu</p>
+          <p>Jharkhand, Pin: 822126</p>
+          <p>India</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="#home">Home</a></p>
+          <p><a href="#about">About Us</a></p>
+          <p><a href="#products">Products</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2024 Flightime Academy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+      hamburger.setAttribute('aria-expanded', !expanded);
+      navLinks.classList.toggle('active');
+    });
+
+    // Accessibility: toggle menu with keyboard (Enter or Space)
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+        hamburger.setAttribute('aria-expanded', !expanded);
+        navLinks.classList.toggle('active');
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Explore Kits button functionality
+    document.getElementById('explore-kits-btn').addEventListener('click', function() {
+      alert('Thank you for your interest! Our STEM kits help young learners explore science and technology. Visit our Products section to see our offerings.');
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Product cards functionality - click and keyboard accessible
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const product = this.getAttribute('data-product');
+        const price = this.querySelector('.product-price').textContent;
+        alert(`You selected "${product}" for ${price}. This is a great choice for learning STEM concepts!`);
+      });
+      
+      // Keyboard event (Enter/Space)
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const product = this.getAttribute('data-product');
+          const price = this.querySelector('.product-price').textContent;
+          alert(`You selected "${product}" for ${price}. This is a great choice for learning STEM concepts!`);
+        }
+      });
+    });
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (name && email && message) {
+        alert(`Thank you, ${name}! We'll contact you at ${email} soon.`);
+        this.reset();
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+  </script>
+</body>
+</html>
